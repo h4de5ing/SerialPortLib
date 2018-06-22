@@ -1,4 +1,4 @@
-# Android SerialPost Library
+# Android SerialPort  Library
 
 
 License
