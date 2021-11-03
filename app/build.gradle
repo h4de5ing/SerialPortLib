@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 31
     defaultConfig {
         applicationId "com.code19.app"
-        minSdk 15
+        minSdk 17
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -14,10 +15,31 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a'
         }
     }
+    signingConfigs {
+        sign {
+            storeFile file("platform.jks")
+            storePassword('android')
+            keyAlias('android')
+            keyPassword('android')
+        }
+    }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.sign
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.sign
+        }
+        buildFeatures {
+            viewBinding true
+        }
+        dataBinding {
+            //noinspection DataBindingWithoutKapt
+            android.buildFeatures.dataBinding = true
         }
     }
     compileOptions {

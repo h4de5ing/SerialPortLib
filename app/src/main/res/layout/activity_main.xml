@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tv_result"
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -15,10 +15,8 @@
         android:typeface="monospace" />
 
     <LinearLayout
-        android:id="@+id/ll_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_result"
         android:orientation="vertical">
 
         <LinearLayout
@@ -43,6 +41,7 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/continuity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="连续" />
@@ -53,9 +52,11 @@
                 android:text="间隔" />
 
             <EditText
+                android:id="@+id/send_ms"
                 style="@style/Widget.AppCompat.EditText"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:text="100" />
 
             <TextView
@@ -64,11 +65,13 @@
                 android:text="ms" />
 
             <CheckBox
+                android:id="@+id/hex_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hex发" />
 
             <CheckBox
+                android:id="@+id/hex_receive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hex收" />
@@ -79,11 +82,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
+            <com.code19.app.ClearEditText
                 android:id="@+id/et_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableRight="@drawable/clean"
                 android:hint="please type string"
                 android:text="abc1234" />
 

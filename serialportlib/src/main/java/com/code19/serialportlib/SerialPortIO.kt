@@ -22,7 +22,7 @@ object SerialPortIO : BaseIO() {
 
     fun findAllTtysDevices(): List<String> {
         val list = mutableListOf<String>()
-        list.add("/dev/ttyS1")
+        list.add("/dev/ttyS1")//此处手动添加支持
         try {
             list.addAll((File("/dev/").list { _, name -> name.contains("ttyS") }.toMutableList()))
             list.sort()
@@ -35,7 +35,7 @@ object SerialPortIO : BaseIO() {
 
     fun findAllBauds(): Array<Int> {
         return arrayOf(
-            BaudRate.B57600,
+            BaudRate.B9600,
             BaudRate.B115200,
             BaudRate.B230400,
             BaudRate.B460800,

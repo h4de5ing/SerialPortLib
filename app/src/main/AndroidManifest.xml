@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.code19.app">
+    package="com.code19.app"
+    android:sharedUserId="android.uid.system">
 
     <application
         android:allowBackup="true"
@@ -11,8 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

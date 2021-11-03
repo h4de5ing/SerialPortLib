@@ -44,7 +44,7 @@ public class SerialPort {
     public SerialPort(File device, int baudrate, int flags) throws SecurityException, IOException {
 
 		/* Check access permission */
-        if (!device.canRead() || !device.canWrite()) {
+//        if (!device.canRead() || !device.canWrite()) {
 /*            try {
                 *//* Missing read/write permission, trying to chmod the file *//*
                 Process su;
@@ -60,8 +60,8 @@ public class SerialPort {
                 e.printStackTrace();
                 throw new SecurityException();
             }*/
-            throw new SecurityException();
-        }
+//            throw new SecurityException();
+//        }
 
         mFd = open(device.getAbsolutePath(), baudrate, flags);
         if (mFd == null) {
