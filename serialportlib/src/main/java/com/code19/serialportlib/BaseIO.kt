@@ -17,7 +17,11 @@ abstract class BaseIO {
     private var isRun: Boolean = false
     private val executor = ThreadPoolExecutor(3, 10, 5, TimeUnit.SECONDS, LinkedBlockingQueue())
 
-    fun start(inputStream: InputStream, outputStream: OutputStream, callback: (buffer: ByteArray, size: Int) -> Unit) {
+    fun start(
+        inputStream: InputStream,
+        outputStream: OutputStream,
+        callback: (buffer: ByteArray, size: Int) -> Unit
+    ) {
         isRun = true
         readThread = startReadThread(inputStream, callback)
         writeThread = startWriteThread(outputStream, readThread!!)
@@ -42,14 +46,19 @@ abstract class BaseIO {
         return writeThread
     }
 
-    private fun startReadThread(inputStream: InputStream, callback: (buffer: ByteArray, size: Int) -> Unit): ReadThread {
+    private fun startReadThread(
+        inputStream: InputStream,
+        callback: (buffer: ByteArray, size: Int) -> Unit
+    ): ReadThread {
         val readThread = ReadThread(inputStream, callback)
         executor.execute(readThread)
         return readThread
     }
 
-    inner class WriteThread(private val outputStream: OutputStream,
-                            private val readThread: ReadThread) : Thread() {
+    inner class WriteThread(
+        private val outputStream: OutputStream,
+        private val readThread: ReadThread
+    ) : Thread() {
         private val queen = LinkedList<Packet>()
         private val objecz = Object()
 
@@ -71,7 +80,7 @@ abstract class BaseIO {
                     if (poll.callback != null) {
                         buffer = readThread.get(2000)
                     }
-                    poll.callback?.invoke(buffer != null, if (buffer != null) buffer else poll.buffer)
+                    poll.callback?.invoke(buffer != null, buffer ?: poll.buffer)
                 } catch (e: Exception) {
                     this@BaseIO.stop()
                 }
@@ -101,11 +110,16 @@ abstract class BaseIO {
         }
     }
 
-    class Packet(val buffer: ByteArray, val callback: ((success: Boolean, buffer: ByteArray) -> Unit)? = null)
+    class Packet(
+        val buffer: ByteArray,
+        val callback: ((success: Boolean, buffer: ByteArray) -> Unit)? = null
+    )
 
 
-    inner class ReadThread(private val inputStream: InputStream,
-                           private val callback: (buffer: ByteArray, size: Int) -> Unit) : Thread() {
+    inner class ReadThread(
+        private val inputStream: InputStream,
+        private val callback: (buffer: ByteArray, size: Int) -> Unit
+    ) : Thread() {
         private val readBuffer = ByteArray(1024)
         private var readSize = 0
         private val objecz = Object()
